@@ -48,7 +48,7 @@ public class LoginServlets extends HttpServlet {
             object.addProperty("error", Boolean.TRUE);
             object.addProperty("errormsg", "Usuario o contraseña incorrecta");
         }
-        
+        /*hola mundo*/
         PrintWriter out = response.getWriter();
         out.print(gson.toJson(object));  
         out.flush();
