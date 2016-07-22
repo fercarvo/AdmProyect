@@ -52,7 +52,7 @@
             <th>Eliminar</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id = "tabla">
           <tr>
             <th scope="row">1</th>
             <td>Juan Perez</td>
@@ -70,7 +70,7 @@
             <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
           </tr>
           <tr>
-            <th scope="row">3</th>
+              <th scope="row">3</th>
             <td>Jose Sanchez</td>
             <td>jsanchez@example.com</td>
             <td>Administrador</td>
@@ -134,7 +134,34 @@
                type: "POST",
                url: url,
                success: function(data) {
-                   console.log(data);
+                   var $id;
+                   var $nombre;
+                   var $email;
+                   var $rol;
+                   
+                   $.each(data, function(index, usuario) {
+                       var $registro = $('<tr>');
+                       $id = $('<th>', {
+                           'scope' : 'row',
+                           text : usuario.id 
+                       });
+                       $nombre = $('<td>', {
+                           text : usuario.nombre
+                       });
+                       $email = $('<td>', {
+                           text : usuario.email
+                       });
+                       $rol = $('<td>', {
+                           text : usuario.rol
+                       });
+                       $registro.append($id);
+                       $registro.append($nombre);
+                       $registro.append($email);
+                       $registro.append($rol);
+                       $registro.append($('<td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>'));
+                       $registro.append($('<td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>'));
+                       $("#tabla").append($registro);
+                   } );
                }
            });
             
