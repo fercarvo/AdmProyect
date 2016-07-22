@@ -5,6 +5,8 @@
  */
 package controladores;
 
+import controladores.Usuario;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -36,8 +38,13 @@ public class UsuariosServlet extends HttpServlet {
         response.setContentType("application/json");
         
         Gson gson = new Gson();
-        JsonObject object = new JsonObject();
+        Usuario[] usuarios = new Usuario().getUsuarios();
         
+        
+        
+        PrintWriter out = response.getWriter();
+        out.print(gson.toJson(usuarios));  
+        out.flush();
         
         
     }

@@ -1,11 +1,11 @@
 package controladores;
 
-import controladores.MySQLAccess;
+import controladores.Usuario;
 
 public class Main {
   public static void main(String[] args) throws Exception {
-    MySQLAccess dao = new MySQLAccess();
-    dao.readDataBase();
+    Usuario dao = new Usuario();
+    dao.guardar("Stalyn", "alfredleo@gmail.com", "estudiante");
   }
 
 } 

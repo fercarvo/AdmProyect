@@ -128,7 +128,15 @@
                  ]
             });
             
-            
+            var url = "UsuariosServlet";
+               
+           $.ajax({
+               type: "POST",
+               url: url,
+               success: function(data) {
+                   console.log(data);
+               }
+           });
             
         });
     </script>
