@@ -63,7 +63,7 @@
     <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form>
+          <form id="formNuevoUser">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Ingresar Usuario</h4>
@@ -105,8 +105,23 @@
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
             });
-            
+            $("#formNuevoUser").submit(function(e){
+                e.preventDefault();
+               var formData=$("#formNuevoUser").serialize();
+               var url = "guardarUsuario";
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                   data:formData,
+                   success:function(){
+                   window.location = "home.jsp";
+                   
+                   
+               }
+               });
+            });
         });
+        
     </script>
   </body>
 </html>
