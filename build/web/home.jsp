@@ -77,9 +77,9 @@
                 </div>
                 <div class="form-group">
                   <select class="form-control" id="selectRol" name="selectRol">
-                    <option value="1">Desarrollador</option>
-                    <option value="2">Diseñador</option>
-                    <option value="3">Administrador</option>
+                    <option value="Desarrollador">Desarrollador</option>
+                    <option value="Diseñador">Diseñador</option>
+                    <option value="Administrador">Administrador</option>
                   </select>
                 </div>
             </div>
