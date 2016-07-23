@@ -43,7 +43,7 @@ public class Usuario {
     }
     
     
-    private Usuario getUsuario(Integer id) {
+    public Usuario getUsuario(Integer id) {
         Usuario usuario = new Usuario();
         //Cargamos la conexión
         Conexion conexion = new Conexion();
@@ -72,7 +72,8 @@ public class Usuario {
     }
     
     
-    public Usuario [] getUsuarios() {
+    public Integer getSizeUsuarios() {
+        Integer cantReg = 0;
         //cargamos la conexión
         Conexion conexion = new Conexion();
         Connection con = conexion.getConnection();
@@ -87,25 +88,34 @@ public class Usuario {
             rs = st.executeQuery(sql);
             //Obtenemos el resultado
             rs.next();
-            Integer cantReg = rs.getInt(1);
-            
-            Usuario [] usuarios = new Usuario[cantReg];
-            //Obtenemos todos los registros
-            for (int iterador = 0; iterador < cantReg; iterador++) {
-                usuarios[iterador] = new Usuario().getUsuario(iterador+1);
-            }
-            
+            cantReg = rs.getInt(1);
             con.close();
             rs.close();
             st.close();
             
-            return usuarios;
+            return cantReg;
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        return null;
+        return cantReg;
         
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRol() {
+        return rol;
     }
 
 }

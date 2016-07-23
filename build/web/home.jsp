@@ -1,3 +1,4 @@
+<%@page import="controladores.UsuariosServlet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,30 +54,7 @@
           </tr>
         </thead>
         <tbody id = "tabla">
-          <tr>
-            <th scope="row">1</th>
-            <td>Juan Perez</td>
-            <td>jperez@example.com</td>
-            <td>Desarrollador</td>
-            <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
-            <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Rodrigo Castro</td>
-            <td>rcastro@example.com</td>
-            <td>Diseñador</td>
-            <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
-            <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-          </tr>
-          <tr>
-              <th scope="row">3</th>
-            <td>Jose Sanchez</td>
-            <td>jsanchez@example.com</td>
-            <td>Administrador</td>
-            <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
-            <td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-          </tr>
+          <%= new UsuariosServlet().tablaUsuarios() %>
         </tbody>
       </table>
     </div>
@@ -127,43 +105,6 @@
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
             });
-            
-            var url = "UsuariosServlet";
-               
-           $.ajax({
-               type: "POST",
-               url: url,
-               success: function(data) {
-                   var $id;
-                   var $nombre;
-                   var $email;
-                   var $rol;
-                   
-                   $.each(data, function(index, usuario) {
-                       var $registro = $('<tr>');
-                       $id = $('<th>', {
-                           'scope' : 'row',
-                           text : usuario.id 
-                       });
-                       $nombre = $('<td>', {
-                           text : usuario.nombre
-                       });
-                       $email = $('<td>', {
-                           text : usuario.email
-                       });
-                       $rol = $('<td>', {
-                           text : usuario.rol
-                       });
-                       $registro.append($id);
-                       $registro.append($nombre);
-                       $registro.append($email);
-                       $registro.append($rol);
-                       $registro.append($('<td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>'));
-                       $registro.append($('<td><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>'));
-                       $("#tabla").append($registro);
-                   } );
-               }
-           });
             
         });
     </script>
