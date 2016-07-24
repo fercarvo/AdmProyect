@@ -1,4 +1,10 @@
-<%@page import="controladores.UsuariosServlet"%>
+<%-- 
+    Document   : proyecto
+    Created on : 24-jul-2016, 11:49:23
+    Author     : Usuario
+--%>
+
+<%-- <%@page import="controladores.UsuariosServlet"%>--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +34,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Usuarios</a></li>
-            <li><a href="proyecto.jsp">Proyectos</a></li>
+            <li ><a href="#">Usuarios</a></li>
+            <li class="active"><a href="#">Proyectos</a></li>
             <li><a href="#">Dashboard</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -40,21 +46,21 @@
       </div>
     </nav>
     <div class="container usuarios">
-      <h2>Registro de Usuarios</h2>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Agregar Usuario</button>
+      <h2>Registro de Proyectos</h2>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Agregar Proyecto</button>
       <table id="tablaUsuarios" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>#</th>
             <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
+            <th>Descripción</th>
+            <th>Usuario Responsable</th>
             <th>Editar</th>
             <th>Eliminar</th>
           </tr>
         </thead>
         <tbody id = "tabla">
-          <%= new UsuariosServlet().tablaUsuarios() %>
+          <%--<%= new UsuariosServlet().tablaUsuarios() %>--%>
         </tbody>
       </table>
     </div>
@@ -66,21 +72,17 @@
           <form id="formNuevoUser">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Ingresar Usuario</h4>
+              <h4 class="modal-title">Ingresar Proyecto</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                   <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputApellido" name="inputEmail" placeholder="Email">
+                  <input type="text" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripcion">
                 </div>
                 <div class="form-group">
-                  <select class="form-control" id="selectRol" name="selectRol">
-                    <option value="Desarrollador">Desarrollador</option>
-                    <option value="Diseñador">Diseñador</option>
-                    <option value="Administrador">Administrador</option>
-                  </select>
+                  <input type="text" class="form-control" id="inputResponsable" name="inputResponsable" placeholder="Nombre del Responsable">
                 </div>
             </div>
             <div class="modal-footer">
@@ -96,7 +98,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
     <script>
-        $(document).ready(function() {
+        /*$(document).ready(function() {
             $('#tablaUsuarios').DataTable({
                 "language": {
                     url: 'i18n/dt-spanish.json'
@@ -120,7 +122,7 @@
                }
                });
             });
-        });
+        });*/
         
     </script>
   </body>
