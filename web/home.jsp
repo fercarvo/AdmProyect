@@ -30,7 +30,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Usuarios</a></li>
             <li><a href="proyecto.jsp">Proyectos</a></li>
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="dashboard.jsp">Dashboard</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#about"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
