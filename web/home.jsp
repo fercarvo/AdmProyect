@@ -113,15 +113,22 @@
                    type: "POST",
                    url: url,
                    data:formData,
-                   success:function(){
-                   window.location = "home.jsp";
-                   
-                   
+                   success:function(){   
                }
-               
-               
-               
                });
+            });
+            
+            $('.eliminarUsuario').click(function() {
+               var userId = $(this).siblings('.userId').text();
+               var string = userId.toString();
+               var url = "eliminarUsuario";
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: {Id:string},
+                   success:function(){}
+               });
+               $(this).parent().remove();
             });
         });
         

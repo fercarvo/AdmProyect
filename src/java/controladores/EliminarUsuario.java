@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,39 +17,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
-@WebServlet(name = "ProyectosServlet", urlPatterns = {"/ProyectosServlet"})
-public class ProyectosServlet extends HttpServlet {
+@WebServlet(name = "eliminarUsuario", urlPatterns = {"/eliminarUsuario"})
+public class EliminarUsuario extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Proyecto proyecto=new Proyecto();
-        String action = request.getParameter("action");
-        response.setContentType("application/json");
-        
-        Gson gson = new Gson();
-            Usuario[] usuarios = new Usuario().getUsuarios();
-            PrintWriter out = response.getWriter();
-            out.print(gson.toJson(usuarios));  
-            out.flush();
-        
-            
-            String nombre = request.getParameter("inputNombre");
-            String descripcion=request.getParameter("inputDescripcion");
-            String id=request.getParameter("inputId");
-            Integer  id_usuario=Integer.valueOf(id);
-            proyecto.guardar(nombre,descripcion,id_usuario);
-        
-
-        
+        Usuario.eliminar(request.getParameter("Id"));
+        System.out.println(request.getParameter("Id"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

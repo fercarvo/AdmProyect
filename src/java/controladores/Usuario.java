@@ -42,6 +42,22 @@ public class Usuario {
         }
     }
     
+    public static void eliminar (String id){
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        String sql = "delete from usuario where id = '"+id+"'";
+        try {
+            st = con.createStatement();
+            st.executeQuery(sql);
+            //Obtenemos los datos del usuario
+            con.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     public Usuario getUsuario(Integer id) {
         Usuario usuario = new Usuario();
