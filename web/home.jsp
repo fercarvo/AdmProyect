@@ -113,7 +113,8 @@
                    type: "POST",
                    url: url,
                    data:formData,
-                   success:function(){   
+                   success:function(){
+                       window.location = "home.jsp";
                }
                });
             });

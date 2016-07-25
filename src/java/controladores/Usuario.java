@@ -50,7 +50,7 @@ public class Usuario {
         String sql = "delete from usuario where id = '"+id+"'";
         try {
             st = con.createStatement();
-            st.executeQuery(sql);
+            st.executeUpdate(sql);
             //Obtenemos los datos del usuario
             con.close();
             st.close();
