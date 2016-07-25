@@ -33,7 +33,9 @@ public class DashboardServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer id_proyecto = Integer.parseInt(request.getParameter("id_proyecto"));
+        String parametro = request.getParameter("id_proyecto");
+        System.out.println(parametro);
+        Integer id_proyecto = Integer.parseInt(parametro);
         
         response.setContentType("application/json");
         

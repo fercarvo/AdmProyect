@@ -131,23 +131,19 @@
             
             //
             $("select").change(function () {
-                /*var url = "DashboardServlet";
-               
-               $.ajax({
-                   type: "POST",
-                   url: url,
-                   data: $("#loginForm").serialize(),
-                   success: function(data) {
-                       console.log(data);
-                       if (data.error){
-                           $("#errorLogin").show();
-                           $("#errorLogin").text(data.errormsg);
-                       }else {
-                           window.location = data.url;
-                       }
-                   }
-               });
-            });*/
+                
+                console.log($('option:selected').attr('value'));
+                var url = "DashboardServlet";
+                var id_proyecto = $('opcion:selected').attr('value');
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    id_proyecto: $('opcion:selected').attr('value'),
+                    success: function(respuesta) {
+                        //console.log(respuesta);
+                    }
+                });
+            });
             
         });
         
