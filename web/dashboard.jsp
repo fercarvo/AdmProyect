@@ -82,17 +82,23 @@
             <div>
               <h3>Inicial</h3><h3>En Desarrollo</h3><h3>Terminado</h3>
             </div>
-            <ul id="inicial">
+            <ul>
                 <li><input type="text" class="form-control" id="inputTarea" placeholder="Nueva Tarea"></li>
-                <li id="item1" draggable="true">Task 1</li>
-                <li id="item2" draggable="true">Task 2</li>
+                <div id="inicial">
+                    
+                </div>
             </ul>
-            <ul id="inprogress">
+            <ul>
                 <li><input type="text" class="form-control" id="inputTarea" placeholder="Nueva Tarea"></li>
-                <li id="item3" draggable="true">Task 3</li>
+                <div id="desarrollo">
+                    
+                </div>
             </ul>
-            <ul id="done">
+            <ul>
                 <li><input type="text" class="form-control" id="inputTarea" placeholder="Nueva Tarea"></li>
+                <div id="terminado">
+                    
+                </div>
             </ul>
         </div>
       </div>
@@ -125,24 +131,37 @@
 
             $('ul').bind('drop', function(event) {
               var listitem = event.originalEvent.dataTransfer.getData("text/plain");
+              console.log(listitem);
               event.target.appendChild(document.getElementById(listitem));
               event.preventDefault();
             });
             
-            //
+            //funcion para actualizar las tareas al cambiar el proyecto en el combobox
             $("select").change(function () {
-                
-                console.log($('option:selected').attr('value'));
+                $("#inicial").empty();
+                $("#desarrollo").empty();
+                $("#terminado").empty();
                 var url = "DashboardServlet";
-                var id_proyecto = $('opcion:selected').attr('value');
+                var id = $("select").val();
+                console.log(id);
                 $.ajax({
-                    type: "POST",
-                    url: url,
-                    id_proyecto: $('opcion:selected').attr('value'),
-                    success: function(respuesta) {
-                        //console.log(respuesta);
-                    }
-                });
+                   type: "POST",
+                   url: url,
+                   data: {
+                            id_proyecto : id
+                    },
+                   dataType: "json",
+                   success: function(result) {
+                       $.each(result, function(i, tarea) {
+                           $("#"+tarea.estado).append($('<li>', {
+                               id: "item"+tarea.id,
+                               draggable: 'true',
+                               text: tarea.titulo
+                            }));
+                            
+                       });
+                   }
+               });
             });
             
         });

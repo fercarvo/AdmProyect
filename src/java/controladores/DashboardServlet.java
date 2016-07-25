@@ -33,6 +33,8 @@ public class DashboardServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        System.out.println("hola1");
         String parametro = request.getParameter("id_proyecto");
         System.out.println(parametro);
         Integer id_proyecto = Integer.parseInt(parametro);
@@ -41,7 +43,6 @@ public class DashboardServlet extends HttpServlet {
         
         Gson gson = new Gson();
         Tarea[] tareas = new Tarea().getTareasPorProyecto(id_proyecto);
-        
         
         /*hola mundo*/
         PrintWriter out = response.getWriter();
@@ -61,6 +62,7 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("hola2");
         processRequest(request, response);
     }
 
@@ -75,7 +77,16 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        System.out.println("hola3");
+        response.setContentType( "text/html; charset=iso-8859-1");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        
+        String id = request.getParameter("id_proyecto");
+        Integer id_proyecto = Integer.parseInt(id);
+        
+        Tarea[] tareas = new Tarea().getTareasPorProyecto(id_proyecto);
+        out.print(gson.toJson(tareas)); 
     }
 
     /**
