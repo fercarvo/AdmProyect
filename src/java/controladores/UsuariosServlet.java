@@ -22,7 +22,7 @@ public class UsuariosServlet {
             codTabla = codTabla + "<td>" + usuario.getNombre() + "</td>\n";
             codTabla = codTabla + "<td>" + usuario.getEmail() + "</td>\n";
             codTabla = codTabla + "<td>" + usuario.getRol() + "</td>\n";
-            codTabla = codTabla + "<td class= 'editarUsuario'><a href=\"#\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span></a></td>\n";
+            codTabla = codTabla + "<td class= 'editarUsuario' data-toggle=\"modal\" data-target=\"#modalUsuariosUpdate\"><a href=\"#\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span></a></td>\n";
             codTabla = codTabla + "<td class= 'eliminarUsuario'><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>\n";
             codTabla = codTabla + "</tr>\n";
         }

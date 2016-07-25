@@ -92,6 +92,39 @@
       </div>
     </div>
 
+    <div class="modal fade" id="modalUsuariosUpdate" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form id="formUpdateUser">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Actualizar Usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" id="inputApellido" name="inputEmail" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <select class="form-control" id="selectRol" name="selectRol">
+                    <option value="Desarrollador">Desarrollador</option>
+                    <option value="Diseñador">Diseñador</option>
+                    <option value="Administrador">Administrador</option>
+                  </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
@@ -116,7 +149,6 @@
                    success:function(){
                        window.location = "home.jsp";
 
-                   
                }
                });
             });
@@ -133,6 +165,27 @@
                });
                $(this).parent().remove();
             });
+            
+            $('.editarUsuario').click(function() {
+               var userId = $(this).siblings('.userId').text();
+               var string = userId.toString();
+                $("#formUpdateUser").submit(function(e){
+                    e.preventDefault();
+                   var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string});
+                   var url = "UpdateUsuario";
+                   $.ajax({
+                       type: "POST",
+                       url: url,
+                       data:formData,
+                       success:function(){
+                           window.location = "home.jsp";
+                   }
+                   });
+                });
+            });
+            
+            
+            
         });
         
     </script>

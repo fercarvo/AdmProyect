@@ -59,6 +59,23 @@ public class Usuario {
         }
     }
     
+    public void update (String id, String nombre, String email, String rol){
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        String sql = "UPDATE usuario SET nombre ='"+nombre+"', email='"+email+"', rol='"+rol+"' WHERE id='"+id+"'";
+        try{
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            //Cerramos las conexiones
+            con.close();
+            st.close();
+            System.out.println("UPDATED");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public Usuario getUsuario(Integer id) {
         Usuario usuario = new Usuario();
         //Cargamos la conexión
