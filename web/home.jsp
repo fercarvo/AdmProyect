@@ -113,13 +113,10 @@
                    type: "POST",
                    url: url,
                    data:formData,
-<<<<<<< HEAD
                    success:function(){
                        window.location = "home.jsp";
-=======
-                   success:function(){   
-                   window.location="home.jsp"
->>>>>>> 579d1106c4bab88e8fe4465c77f3a920ef1b969e
+
+                   
                }
                });
             });

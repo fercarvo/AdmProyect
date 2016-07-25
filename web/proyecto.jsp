@@ -71,7 +71,7 @@
     <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form id="formNuevoProyecto" action="SingleController?action=guardar" method="POST">
+          <form id="formNuevoProyecto" >
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Ingresar Proyecto</h4>
@@ -151,12 +151,13 @@
                     return false;
 		}
             });
-            $("#formNuevoProyecto").submit(function(e){
+           $("#formNuevoProyecto").submit(function(e){
+               // this.setAttribute("color","red");
                 
                 e.preventDefault();
                var formData=$("#formNuevoProyecto").serialize();
                
-               var url = "ProyectosServlet";
+               var url = "ProyectosServlet?action=guardar";
                $.ajax({
                    type: "POST",
                    url: url,

@@ -42,12 +42,20 @@ public class ProyectosServlet extends HttpServlet {
             out.print(gson.toJson(usuarios));  
             out.flush();
         
-            
+            if (action.equals("guardar")){ 
+           
             String nombre = request.getParameter("inputNombre");
             String descripcion=request.getParameter("inputDescripcion");
             String id=request.getParameter("inputId");
             Integer  id_usuario=Integer.valueOf(id);
+             
             proyecto.guardar(nombre,descripcion,id_usuario);
+            
+           
+           
+}
+            
+          
         
 
         
