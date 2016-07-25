@@ -33,18 +33,18 @@ public class DashboardServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Integer usuario = request.getParameter("usuario");
-//        
-//        response.setContentType("application/json");
-//        
-//        Gson gson = new Gson();
-//        Tarea[] tareas = new Tarea().getTareasPorProyecto(Integer.MIN_VALUE)
-//        
-//        
-//        /*hola mundo*/
-//        PrintWriter out = response.getWriter();
-//        out.print(gson.toJson(tareas));  
-//        out.flush();
+        Integer id_proyecto = Integer.parseInt(request.getParameter("id_proyecto"));
+        
+        response.setContentType("application/json");
+        
+        Gson gson = new Gson();
+        Tarea[] tareas = new Tarea().getTareasPorProyecto(id_proyecto);
+        
+        
+        /*hola mundo*/
+        PrintWriter out = response.getWriter();
+        out.print(gson.toJson(tareas));  
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

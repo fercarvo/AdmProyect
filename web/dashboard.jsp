@@ -131,8 +131,23 @@
             
             //
             $("select").change(function () {
-                
-            });
+                /*var url = "DashboardServlet";
+               
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: $("#loginForm").serialize(),
+                   success: function(data) {
+                       console.log(data);
+                       if (data.error){
+                           $("#errorLogin").show();
+                           $("#errorLogin").text(data.errormsg);
+                       }else {
+                           window.location = data.url;
+                       }
+                   }
+               });
+            });*/
             
         });
         
