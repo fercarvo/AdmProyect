@@ -32,6 +32,7 @@ public class eliminarUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Usuario usuario = new Usuario();
+        System.out.println(request);
         Integer id = Integer.parseInt(request.getParameter("userId"));
         System.out.println(request.getParameter("userId"));
         usuario.eliminar(id);

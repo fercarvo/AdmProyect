@@ -123,6 +123,22 @@
             });
         });
         
+        
+  
+        $('.eliminarUsuario').click(function() {
+               var userId = $(this).children('userId').text();
+               
+               var url = "eliminarUsuario";
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: {userId:userId.toString()},
+                   success:function(){}
+               });
+               
+               $(this).parent().remove();
+            });
+        
        
         
     </script>
