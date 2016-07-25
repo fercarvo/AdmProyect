@@ -15,14 +15,29 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Usuario
+ * @author Fernando
  */
-@WebServlet(name = "eliminarUsuario", urlPatterns = {"/eliminarUsuario"})
-public class EliminarUsuario extends HttpServlet {
+@WebServlet(name = "UpdateUsuario", urlPatterns = {"/UpdateUsuario"})
+public class UpdateUsuario extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Usuario.eliminar(request.getParameter("Id"));
+        Usuario u = new Usuario();
+        String id = request.getParameter("Id");
+        String nombre = request.getParameter("inputNombre");
+        String rol = request.getParameter("selectRol");
+        String email = request.getParameter("inputEmail");
+        u.update(id, nombre, email, rol);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
