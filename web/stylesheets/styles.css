@@ -38,5 +38,14 @@ nav li a span {
     margin-bottom: 10px;
 }
 
-//Dashboard
+
+
+
+
+.ui-autocomplete {
+  z-index: 215000000 !important;
+}
+#inputId{
+    display: none;
+}
 

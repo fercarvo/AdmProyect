@@ -117,5 +117,40 @@ public class Usuario {
     public String getRol() {
         return rol;
     }
+    public Usuario [] getUsuarios() {
+        //cargamos la conexión
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        //creamos la sentencia sql para saber cuantos registros existen
+        String sql = "select count(*) from usuario";
+        //Ejecutamos la sentencia sql
+        try {
+            
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
+            //Obtenemos el resultado
+            rs.next();
+            Integer cantReg = rs.getInt(1);
+            
+            Usuario [] usuarios = new Usuario[cantReg];
+            //Obtenemos todos los registros
+            for (int iterador = 0; iterador < cantReg; iterador++) {
+                usuarios[iterador] = new Usuario().getUsuario(iterador+1);
+            }
+            
+            con.close();
+            rs.close();
+            st.close();
+            
+            return usuarios;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+        
+    }
 
 }
