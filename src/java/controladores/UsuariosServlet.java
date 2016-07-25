@@ -18,7 +18,7 @@ public class UsuariosServlet {
         for(int i = 1 ; i <= iterador.getSizeUsuarios(); i++ ) {
             usuario = iterador.getUsuario(i);
             codTabla = codTabla + "<tr >\n";
-            codTabla = codTabla + "<th id = 'userId' scope=\"row\">" + usuario.getId() + "</th>\n";
+            codTabla = codTabla + "<th class = 'userId' scope=\"row\">" + usuario.getId() + "</th>\n";
             codTabla = codTabla + "<td>" + usuario.getNombre() + "</td>\n";
             codTabla = codTabla + "<td>" + usuario.getEmail() + "</td>\n";
             codTabla = codTabla + "<td>" + usuario.getRol() + "</td>\n";
