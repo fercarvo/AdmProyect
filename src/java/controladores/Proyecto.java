@@ -5,14 +5,39 @@
  */
 package controladores;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
- * @author Fernando
+ * @author Usuario
  */
-class Proyecto {
-
-    void guardar(String nombre, String descripcion, Integer id_usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+public class Proyecto {
+    private Integer id;
+    private String nombre;
+    private String descripcion;
+    private Integer id_usuario;
+    
+    public static void guardar(String nombre, String descripcion,Integer id_usuario) {
+        //Cargamos la conexión
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        //Creamos la sentencia sql
+        String sql = "insert into proyecto (nombre,descripcion,id_usuario) values ('"+nombre+"','"+descripcion+"','"+id_usuario+"')";
+        
+//Ejecutamos la sentencia sql
+        try{
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            //Cerramos las conexiones
+            con.close();
+            st.close();
+            System.out.println("insertado con éxito!!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
 }
