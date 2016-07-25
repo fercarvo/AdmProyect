@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Administrador de Proyectos</title>
-
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css"/>
     <link rel="stylesheet" href="stylesheets/styles.css">
@@ -63,13 +63,15 @@
           <%--<%= new UsuariosServlet().tablaUsuarios() %>--%>
         </tbody>
       </table>
+       
     </div>
 
     <!-- Modal -->
+    
     <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form id="formNuevoUser">
+          <form id="formNuevoProyecto" action="SingleController?action=guardar" method="POST">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Ingresar Proyecto</h4>
@@ -84,45 +86,89 @@
                 <div class="form-group">
                   <input type="text" class="form-control" id="inputResponsable" name="inputResponsable" placeholder="Nombre del Responsable">
                 </div>
+                
+                  <input type="number" id="inputId" name="inputId" >
+                
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               <button type="submit" class="btn btn-primary">Ingresar</button>
             </div>
+               
           </form>
+            
         </div>
+         
       </div>
+        
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
     <script>
-        /*$(document).ready(function() {
-            $('#tablaUsuarios').DataTable({
+        $(document).ready(function() {
+            /*$('#tablaUsuarios').DataTable({
                 "language": {
                     url: 'i18n/dt-spanish.json'
                 },
                 "aoColumnDefs": [
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
+            });*/
+            $("#inputResponsable").autocomplete({
+                
+                source: function(request, response){
+                    var nombres = [];
+                     $.ajax({
+                   //type: "POST",
+                   url: 'ProyectosServlet',
+                   
+                   success: function(data) {
+                       
+                       //console.log(paises);
+                        $.each(data, function(index, usuario) {
+                            console.log(usuario.nombre);
+                            nombres.push({
+                                label: usuario.nombre,
+                                id:usuario.id
+                            });
+                        });
+                        
+                            
+                        
+                        //console.log(paises);
+                        response($.ui.autocomplete.filter(nombres, request.term));
+                   }
+               });
+                    
+                    
+                },
+		select: function(event, ui){
+                    $("#inputResponsable").val(ui.item.label);
+                    $("#inputId").val(ui.item.id);
+                    return false;
+		}
             });
-            $("#formNuevoUser").submit(function(e){
+            $("#formNuevoProyecto").submit(function(e){
+                
                 e.preventDefault();
-               var formData=$("#formNuevoUser").serialize();
-               var url = "guardarUsuario";
+               var formData=$("#formNuevoProyecto").serialize();
+               
+               var url = "ProyectosServlet";
                $.ajax({
                    type: "POST",
                    url: url,
                    data:formData,
                    success:function(){
-                   window.location = "home.jsp";
+                   window.location = "proyecto.jsp";
                    
                    
                }
                });
             });
-        });*/
+        });
         
     </script>
   </body>

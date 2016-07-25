@@ -37,3 +37,9 @@ nav li a span {
 .usuarios button {
     margin-bottom: 10px;
 }
+.ui-autocomplete {
+  z-index: 215000000 !important;
+}
+#inputId{
+    display: none;
+}
