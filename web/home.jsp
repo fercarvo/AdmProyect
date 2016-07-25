@@ -114,6 +114,7 @@
                    url: url,
                    data:formData,
                    success:function(){   
+                   window.location="home.jsp"
                }
                });
             });
