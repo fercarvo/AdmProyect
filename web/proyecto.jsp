@@ -4,7 +4,7 @@
     Author     : Usuario
 --%>
 
-<%-- <%@page import="controladores.UsuariosServlet"%>--%>
+<%@page import="controladores.listaDeProyectos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +34,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li ><a href="#">Usuarios</a></li>
+            <li ><a href="home.jsp">Usuarios</a></li>
             <li class="active"><a href="#">Proyectos</a></li>
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="dashboard.jsp">Dashboard</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#about"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
@@ -48,7 +48,7 @@
     <div class="container usuarios">
       <h2>Registro de Proyectos</h2>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuarios">Agregar Proyecto</button>
-      <table id="tablaUsuarios" class="table table-bordered table-striped">
+      <table id="tablaProyectos" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>#</th>
@@ -60,7 +60,7 @@
           </tr>
         </thead>
         <tbody id = "tabla">
-          <%--<%= new UsuariosServlet().tablaUsuarios() %>--%>
+          <%= new listaDeProyectos().tablaProyectos() %>
         </tbody>
       </table>
        
@@ -109,14 +109,14 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
-            /*$('#tablaUsuarios').DataTable({
+            $('#tablaProyectos').DataTable({
                 "language": {
                     url: 'i18n/dt-spanish.json'
                 },
                 "aoColumnDefs": [
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
-            });*/
+            });
             $("#inputResponsable").autocomplete({
                 
                 source: function(request, response){
