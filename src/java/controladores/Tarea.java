@@ -108,7 +108,7 @@ public class Tarea {
         Statement st;
         ResultSet rs;
         //Creamos la sentencia sql
-        String sql = "Select * from tarea where id_tarea = '"+id+"'";
+        String sql = "Select * from tarea where id_proyecto = '"+id_proyecto+"'";
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
@@ -126,6 +126,10 @@ public class Tarea {
             e.printStackTrace();
         }
         return tareas;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
     
 }
