@@ -48,6 +48,17 @@ public class DashboardServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(gson.toJson(tareas));  
         out.flush();
+        
+        
+        String action = request.getParameter("action");
+        if (action.equals("guardar")){ 
+            Tarea tarea = new Tarea();
+            String titulo = request.getParameter("titulo");
+            String estado=request.getParameter("estado");
+             
+            tarea.guardarTarea(titulo,estado,id_proyecto);
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

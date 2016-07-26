@@ -83,19 +83,19 @@
               <h3>Inicial</h3><h3>En Desarrollo</h3><h3>Terminado</h3>
             </div>
             <ul>
-                <li><input type="text" class="form-control" id="inputTarea" placeholder="Nueva Tarea"></li>
+                <li><input type="text" class="form-control nuevaTarea" id="inputInicial" placeholder="Nueva Tarea"></li>
                 <div id="inicial">
-                    
+                    <li id="item9" draggable="true">nuevaTareaPrueba</li>
                 </div>
             </ul>
             <ul>
-                <li><input type="text" class="form-control" id="inputTarea" placeholder="Nueva Tarea"></li>
+                <li><input type="text" class="form-control nuevaTarea" id="inputDesarrollo" placeholder="Nueva Tarea"></li>
                 <div id="desarrollo">
                     
                 </div>
             </ul>
             <ul>
-                <li><input type="text" class="form-control" id="inputTarea" placeholder="Nueva Tarea"></li>
+                <li><input type="text" class="form-control nuevaTarea" id="inputTerminado" placeholder="Nueva Tarea"></li>
                 <div id="terminado">
                     
                 </div>
@@ -132,18 +132,18 @@
             $('ul').bind('drop', function(event) {
               var listitem = event.originalEvent.dataTransfer.getData("text/plain");
               console.log(listitem);
-              event.target.appendChild(document.getElementById(listitem));
+              event.target.innerHTML(document.getElementById(listitem));
               event.preventDefault();
             });
             
             //funcion para actualizar las tareas al cambiar el proyecto en el combobox
-            $("select").change(function () {
+            $("select").change(function (e) {
+                e.preventDefault();
                 $("#inicial").empty();
                 $("#desarrollo").empty();
                 $("#terminado").empty();
                 var url = "DashboardServlet";
                 var id = $("select").val();
-                console.log(id);
                 $.ajax({
                    type: "POST",
                    url: url,
@@ -155,15 +155,58 @@
                        $.each(result, function(i, tarea) {
                            $("#"+tarea.estado).append($('<li>', {
                                id: "item"+tarea.id,
-                               draggable: 'true',
+                               draggable: "true",
                                text: tarea.titulo
                             }));
-                            
+                            console.log($("#item"+tarea.id).text());
                        });
                    }
                });
             });
             
+            
+            //GUARDAR TAREA
+            //identificar ENTER y obtener datos
+            $(".nuevaTarea").keydown(function(e){
+                var key = e.which;
+                if(key == 13) {
+                    var id_input = $(this).attr("id");//contiene el id del input
+                    var titulo = $("#"+id_input).val();
+                    //validando la informacion que se ingresó
+                    if(titulo == "") {
+                        alert("Escriba un titulo");
+                    } else {
+                        var estado;
+                        var id_proyecto;
+                        if(id_input == "inputInicial") {
+                            estado = "inicial";
+                        }
+                        if(id_input == "inputDesarrollo") {
+                            estado = "desarrollo";
+                        }
+                        if (id_input == "inputTerminado") {
+                            estado = "terminado";
+                        }
+                        id_proyecto = $("select").val();//obtengo el id del proyecto
+                        $("#"+id_input).val("");//borrar el input para ingresar nueva tarea
+                        guardarTarea(titulo, estado, id_proyecto);
+                    }
+                }
+            });
+            
+            var guardarTarea = function(titulo, estado, id_proyecto){
+                alert(titulo+" "+estado+" "+id_proyecto);//comprobar que los datos son correctos
+                var url = "DashboardServlet?action=guardar";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        titulo: titulo,
+                        estado: estado,
+                        id_proyecto: id_proyecto
+                    }
+                });
+            };
         });
         
     </script>
