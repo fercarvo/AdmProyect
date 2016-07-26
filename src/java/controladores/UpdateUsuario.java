@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,13 +32,24 @@ public class UpdateUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
+        String action = request.getParameter("action");
         Usuario u = new Usuario();
+        Gson gson = new Gson();
         String id = request.getParameter("Id");
+        Integer  id_usuario=Integer.valueOf(id);
+        PrintWriter out = response.getWriter();
+        
+        out.print(gson.toJson(u.getUsuario(id_usuario)));  
+        out.flush();
+       
+          if (action.equals("actualizar")){ 
         String nombre = request.getParameter("inputNombre");
         String rol = request.getParameter("selectRol");
         String email = request.getParameter("inputEmail");
+       
         u.update(id, nombre, email, rol);
-        
+          }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

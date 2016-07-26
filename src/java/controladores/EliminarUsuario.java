@@ -5,6 +5,8 @@
  */
 package controladores;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,7 +24,23 @@ public class EliminarUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Usuario.eliminar(request.getParameter("Id"));
+        Usuario nuevoUsuario = new Usuario();
+        String exito;
+        response.setContentType("application/json");
+        
+        Gson gson = new Gson();
+        JsonObject object = new JsonObject();
+        exito=nuevoUsuario.eliminar(request.getParameter("Id"));
+        if(exito=="bien"){
+           object.addProperty("error", Boolean.FALSE);
+        }
+        else{
+           object.addProperty("error", Boolean.TRUE);
+           object.addProperty("errormsg", "No se puede eliminar este usuario por que tiene proyectos asociados");
+        }
+        PrintWriter out = response.getWriter();
+        out.print(gson.toJson(object));  
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

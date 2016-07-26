@@ -61,9 +61,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li ><a href="#">Usuarios</a></li>
-            <li class="active"><a href="#">Proyectos</a></li>
-            <li><a href="#">Dashboard</a></li>
+            <li ><a href="home.jsp">Usuarios</a></li>
+            <li ><a href="proyecto.jsp">Proyectos</a></li>
+            <li class="active"><a href="#">Dashboard</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#about"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>

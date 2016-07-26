@@ -109,6 +109,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
+            
             $('#tablaProyectos').DataTable({
                 "language": {
                     url: 'i18n/dt-spanish.json'
@@ -122,14 +123,14 @@
                 source: function(request, response){
                     var nombres = [];
                      $.ajax({
-                   //type: "POST",
+                   
                    url: 'ProyectosServlet',
                    
                    success: function(data) {
                        
-                       //console.log(paises);
+                       
                         $.each(data, function(index, usuario) {
-                            console.log(usuario.nombre);
+                            
                             nombres.push({
                                 label: usuario.nombre,
                                 id:usuario.id

@@ -15,6 +15,7 @@
   </head>
 
   <body>
+    <div id="errorLogin" class="alert alert-danger collapse" role="alert"></div>
     <nav class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -73,7 +74,7 @@
                   <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputApellido" name="inputEmail" placeholder="Email">
+                  <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email">
                 </div>
                 <div class="form-group">
                   <select class="form-control" id="selectRol" name="selectRol">
@@ -105,7 +106,7 @@
                   <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="inputApellido" name="inputEmail" placeholder="Email">
+                  <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email">
                 </div>
                 <div class="form-group">
                   <select class="form-control" id="selectRol" name="selectRol">
@@ -154,25 +155,54 @@
             });
             
             $('.eliminarUsuario').click(function() {
+                
                var userId = $(this).siblings('.userId').text();
                var string = userId.toString();
                var url = "eliminarUsuario";
+               $(this).addClass( "selected" );
+               
                $.ajax({
                    type: "POST",
                    url: url,
                    data: {Id:string},
-                   success:function(){}
+                   success:function(data){
+                       if (data.error){
+                           $("#errorLogin").show();
+                           $("#errorLogin").text(data.errormsg);
+                           
+                       }
+                       else{
+                           $("td.selected").parent().remove();
+                       }    
+                       
+                       
+                   }
+                   
                });
-               $(this).parent().remove();
+              
+              
             });
             
             $('.editarUsuario').click(function() {
                var userId = $(this).siblings('.userId').text();
                var string = userId.toString();
+               
+               $.ajax({
+                   type: "POST",
+                   url: "UpdateUsuario",
+                   data: {Id:string},
+                   success: function(data) {
+                       
+                       $("input#inputNombre.form-control").val(data.nombre);
+                       $("input#inputEmail.form-control").val(data.email);
+                       $("select#selectRol.form-control").val(data.rol);
+                   }
+               });
+               
                 $("#formUpdateUser").submit(function(e){
                     e.preventDefault();
                    var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string});
-                   var url = "UpdateUsuario";
+                   var url = "UpdateUsuario?action=actualizar";
                    $.ajax({
                        type: "POST",
                        url: url,

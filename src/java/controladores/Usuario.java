@@ -42,22 +42,25 @@ public class Usuario {
         }
     }
     
-    public static void eliminar (String id){
+    public  String eliminar (String id){
         Conexion conexion = new Conexion();
         Connection con = conexion.getConnection();
         Statement st;
         ResultSet rs;
+        String exito;
         String sql = "delete from usuario where id = '"+id+"'";
         try {
             st = con.createStatement();
             st.executeUpdate(sql);
             //Obtenemos los datos del usuario
-            
+            exito="bien";
             con.close();
             st.close();
         } catch (Exception e) {
             e.printStackTrace();
+            exito="mal";
         }
+        return exito;
     }
     
     public void update (String id, String nombre, String email, String rol){
