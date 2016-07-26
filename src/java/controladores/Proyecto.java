@@ -157,18 +157,19 @@ public class Proyecto {
          Statement st;
          ResultSet rs;
          //creamos la sentencia sql para saber cuantos registros existen
-         String sql = "select count(*) from proyecto";
+         String sql = "select id_proyecto from proyecto";
          //Ejecutamos la sentencia sql
          try {
              
              st = con.createStatement();
              rs = st.executeQuery(sql);
-             //Obtenemos el resultado
-             rs.next();
-             for(int i = 1; i <= rs.getInt(1); i++) {
-                 proyecto = getProyecto(i);
+             while (rs.next()){
+                Integer id = rs.getInt("id_proyecto");
+                proyecto = getProyecto(id);
                  codigo = codigo + "<option value=\""+ proyecto.id + "\">"+ proyecto.nombre +"</option>\n";
-             }
+            }
+            
+             
              con.close();
              rs.close();
              st.close();

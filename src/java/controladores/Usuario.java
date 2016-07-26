@@ -52,6 +52,7 @@ public class Usuario {
             st = con.createStatement();
             st.executeUpdate(sql);
             //Obtenemos los datos del usuario
+            
             con.close();
             st.close();
         } catch (Exception e) {
@@ -70,7 +71,7 @@ public class Usuario {
             //Cerramos las conexiones
             con.close();
             st.close();
-            System.out.println("UPDATED");
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -157,23 +158,21 @@ public class Usuario {
         Statement st;
         ResultSet rs;
         //creamos la sentencia sql para saber cuantos registros existen
-        String sql = "select count(*) from usuario";
+        String sql = "select * from usuario";
         //Ejecutamos la sentencia sql
         try {
-            
+            Integer cantReg = getSizeUsuarios();
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            //Obtenemos el resultado
-            rs.next();
-            Integer cantReg = rs.getInt(1);
-            
             Usuario [] usuarios = new Usuario[cantReg];
-            //Obtenemos todos los registros
-            for (int iterador = 0; iterador < cantReg; iterador++) {
-                usuarios[iterador] = new Usuario().getUsuario(iterador+1);
+            Integer i=0;
+            //Obtenemos el resultado
+            while (rs.next()){
+                Integer id = rs.getInt("id");
+                 usuarios[i] = new Usuario().getUsuario(id);
+                 i++;
             }
-            
-            con.close();
+             con.close();
             rs.close();
             st.close();
             
