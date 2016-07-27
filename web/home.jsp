@@ -184,7 +184,7 @@
                 $("#formUpdateUser").submit(function(e){
                     e.preventDefault();
                     var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string})+'&'+$.param({flag:"update"});
-                    var url = "UserServlet?action=actualizar";
+                    var url = "UserServlet";
                     $.ajax({
                         type: "POST",
                         url: url,
