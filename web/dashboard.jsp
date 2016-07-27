@@ -85,7 +85,7 @@
             <ul>
                 <li><input type="text" class="form-control nuevaTarea" id="inputInicial" placeholder="Nueva Tarea"></li>
                 <div id="inicial">
-                    <li id="item9" draggable="true">nuevaTareaPrueba</li>
+                    
                 </div>
             </ul>
             <ul>
@@ -108,6 +108,32 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
+            var cargarTareas = function(){
+                $("#inicial").empty();
+                $("#desarrollo").empty();
+                $("#terminado").empty();
+                var url = "DashboardServlet?action=cargar";
+                var id = $("select").val();
+                $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: {
+                            id_proyecto : id
+                    },
+                   dataType: "json",
+                   success: function(result) {
+                       $.each(result, function(i, tarea) {
+                           var elem = document.createElement('li');
+                           elem.id = tarea.id;
+                           elem.draggable = "true";
+                           elem.innerHTML = tarea.titulo;
+                           $("#"+tarea.estado).append(elem);
+                       });
+                   }
+               });
+            };
+            
+            cargarTareas();
             //Script del Drag and Drop
             $('li').bind('dragstart', function(event) {
               event.originalEvent.dataTransfer.setData("text/plain",  event.target.getAttribute('id'));
@@ -130,38 +156,20 @@
             });
 
             $('ul').bind('drop', function(event) {
-              var listitem = event.originalEvent.dataTransfer.getData("text/plain");
-              console.log(listitem);
-              event.target.innerHTML(document.getElementById(listitem));
+              //var id_tarea = event.originalEvent.dataTransfer.getData("text/plain")
+              var id_tarea = "1";//EL DRAG ANDO DROP SOLO FUNCIONA PARA LA TAREA CON ID 1, SI QUIEREN HACER PRUEBAS CAMBIEN EL ID EN ESTA LINEA
+              $(event.target).children('div').append($("#"+id_tarea));
+              var estado = $(event.target).children('div').attr('id');
               event.preventDefault();
+              modificarTarea(id_tarea, estado);
             });
             
+            
+            
+            
             //funcion para actualizar las tareas al cambiar el proyecto en el combobox
-            $("select").change(function (e) {
-                e.preventDefault();
-                $("#inicial").empty();
-                $("#desarrollo").empty();
-                $("#terminado").empty();
-                var url = "DashboardServlet";
-                var id = $("select").val();
-                $.ajax({
-                   type: "POST",
-                   url: url,
-                   data: {
-                            id_proyecto : id
-                    },
-                   dataType: "json",
-                   success: function(result) {
-                       $.each(result, function(i, tarea) {
-                           $("#"+tarea.estado).append($('<li>', {
-                               id: "item"+tarea.id,
-                               draggable: "true",
-                               text: tarea.titulo
-                            }));
-                            console.log($("#item"+tarea.id).text());
-                       });
-                   }
-               });
+            $("select").change(function () {
+                cargarTareas();
             });
             
             
@@ -190,12 +198,12 @@
                         id_proyecto = $("select").val();//obtengo el id del proyecto
                         $("#"+id_input).val("");//borrar el input para ingresar nueva tarea
                         guardarTarea(titulo, estado, id_proyecto);
+                        cargarTareas();
                     }
                 }
             });
             
             var guardarTarea = function(titulo, estado, id_proyecto){
-                alert(titulo+" "+estado+" "+id_proyecto);//comprobar que los datos son correctos
                 var url = "DashboardServlet?action=guardar";
                 $.ajax({
                     type: "POST",
@@ -204,6 +212,18 @@
                         titulo: titulo,
                         estado: estado,
                         id_proyecto: id_proyecto
+                    }
+                });
+            };
+            
+            var modificarTarea = function(id_tarea, estado) {
+                var url = "DashboardServlet?action=modificar";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        id_tarea: id_tarea,
+                        estado: estado
                     }
                 });
             };
