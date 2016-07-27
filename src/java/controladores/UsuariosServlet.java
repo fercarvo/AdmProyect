@@ -5,31 +5,17 @@
  */
 package controladores;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 /**
  *
  * @author estudiante.2016
  */
 
 public class UsuariosServlet {
-    public String tablaUsuarios() throws SQLException {
+    public String tablaUsuarios() {
+        Usuario u = new Usuario();
+        Usuario [] usuarios = u.getUsuarios(); 
         String codTabla = "";
-        Usuario usuario = new Usuario();
-        Usuario iterador = new Usuario();
-        Conexion conexion = new Conexion();
-        Connection con = conexion.getConnection();
-        Statement st;
-        ResultSet rs;
-        String sql = "select id from usuario";
-        st = con.createStatement();
-        rs = st.executeQuery(sql);
-       while (rs.next()){
-           Integer i = rs.getInt("id");
-            usuario = iterador.getUsuario(i);
+        for (Usuario usuario : usuarios) {
             codTabla = codTabla + "<tr >\n";
             codTabla = codTabla + "<th class = 'userId' scope=\"row\">" + usuario.getId() + "</th>\n";
             codTabla = codTabla + "<td class = 'nombre'>" + usuario.getNombre() + "</td>\n";
@@ -38,10 +24,7 @@ public class UsuariosServlet {
             codTabla = codTabla + "<td class= 'editarUsuario' data-toggle=\"modal\" data-target=\"#modalUsuariosUpdate\"><a href=\"#\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span></a></td>\n";
             codTabla = codTabla + "<td class= 'eliminarUsuario'><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>\n";
             codTabla = codTabla + "</tr>\n";
-       } 
-       con.close();
-        rs.close();
-        st.close();
+        } 
         return codTabla;
     }
 }

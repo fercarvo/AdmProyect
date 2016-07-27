@@ -100,38 +100,30 @@ public class Usuario {
             rs.close();
             st.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return usuario;
-    }
-    
+    }    
     
     public Integer getSizeUsuarios() {
         Integer cantReg = 0;
-        //cargamos la conexión
         Conexion conexion = new Conexion();
         Connection con = conexion.getConnection();
         Statement st;
         ResultSet rs;
-        //creamos la sentencia sql para saber cuantos registros existen
         String sql = "select count(*) from usuario";
-        //Ejecutamos la sentencia sql
         try {
-            
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            //Obtenemos el resultado
             rs.next();
             cantReg = rs.getInt(1);
             con.close();
             rs.close();
             st.close();
-            
             return cantReg;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        
         return cantReg;
         
     }
@@ -153,33 +145,29 @@ public class Usuario {
     }
     
     public Usuario [] getUsuarios() {
-        //cargamos la conexión
         Conexion conexion = new Conexion();
         Connection con = conexion.getConnection();
         Statement st;
         ResultSet rs;
-        //creamos la sentencia sql para saber cuantos registros existen
         String sql = "select * from usuario";
-        //Ejecutamos la sentencia sql
         try {
             Integer cantReg = getSizeUsuarios();
             st = con.createStatement();
             rs = st.executeQuery(sql);
             Usuario [] usuarios = new Usuario[cantReg];
             Integer i=0;
-            //Obtenemos el resultado
             while (rs.next()){
                 Integer id = rs.getInt("id");
-                 usuarios[i] = new Usuario().getUsuario(id);
-                 i++;
+                usuarios[i] = new Usuario().getUsuario(id);
+                i++;
             }
-             con.close();
+            con.close();
             rs.close();
             st.close();
             
             return usuarios;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         
         return null;
