@@ -1,3 +1,7 @@
+drop database if exists admproyecto;
+create database admproyecto;
+use admproyecto;
+
 -- phpMyAdmin SQL Dump
 -- version 4.5.2
 -- http://www.phpmyadmin.net
@@ -107,3 +111,13 @@ ALTER TABLE `tarea`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+DROP TRIGGER IF EXISTS eliminarTareas;
+DELIMITER $$
+CREATE TRIGGER eliminarTareas
+    before delete ON proyecto
+    FOR EACH ROW BEGIN
+		DELETE FROM tarea
+		WHERE tarea.id_proyecto = old.id_proyecto;
+END$$
