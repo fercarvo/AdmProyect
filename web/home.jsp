@@ -141,8 +141,8 @@
             });
             $("#formNuevoUser").submit(function(e){
                 e.preventDefault();
-               var formData=$("#formNuevoUser").serialize();
-               var url = "guardarUsuario";
+               var formData=$("#formNuevoUser").serialize()+'&'+$.param({flag:"save"});
+               var url = "UserServlet";
                $.ajax({
                    type: "POST",
                    url: url,
@@ -158,13 +158,13 @@
                 
                var userId = $(this).siblings('.userId').text();
                var string = userId.toString();
-               var url = "eliminarUsuario";
+               var url = "UserServlet";
                $(this).addClass( "selected" );
                
                $.ajax({
                    type: "POST",
                    url: url,
-                   data: {Id:string},
+                   data: {Id:string, flag:"delete"},
                    success:function(data){
                        if (data.error){
                            $("#errorLogin").show();
@@ -189,7 +189,7 @@
                
                $.ajax({
                    type: "POST",
-                   url: "UpdateUsuario",
+                   url: "UserServlet",
                    data: {Id:string},
                    success: function(data) {
                        
@@ -201,8 +201,8 @@
                
                 $("#formUpdateUser").submit(function(e){
                     e.preventDefault();
-                   var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string});
-                   var url = "UpdateUsuario?action=actualizar";
+                   var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string})+'&'+$.param({flag:"update"});
+                   var url = "UserServlet?action=actualizar";
                    $.ajax({
                        type: "POST",
                        url: url,
