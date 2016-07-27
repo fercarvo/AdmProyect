@@ -100,24 +100,17 @@ INSERT INTO `usuario` (`id`, `nombre`, `email`, `rol`) VALUES
 -- Filtros para la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-  ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  ADD CONSTRAINT `tarea_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
+  ADD CONSTRAINT `tarea_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-
-DROP TRIGGER IF EXISTS eliminarTareas;
-DELIMITER $$
-CREATE TRIGGER eliminarTareas
-    before delete ON proyecto
-    FOR EACH ROW BEGIN
-		DELETE FROM tarea
-		WHERE tarea.id_proyecto = old.id_proyecto;
-END$$
+select * from proyecto;
+select *from tarea;
