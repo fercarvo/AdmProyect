@@ -127,6 +127,27 @@ public class Tarea {
         }
         return tareas;
     }
+    
+    public void modificarEstadoTarea(Integer id_tarea, String estado) {
+        
+        //Cargamos la conexión
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        //Creamos la sentencia sql
+        String sql = "UPDATE tarea set estado='"+estado+"' where id_tarea='"+id_tarea+"'";
+        //Ejecutamos la sentencia sql
+        try{
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            //Cerramos las conexiones
+            con.close();
+            st.close();
+            System.out.println("insertado con éxito!!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getTitulo() {
         return titulo;

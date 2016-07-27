@@ -51,6 +51,7 @@ public class DashboardServlet extends HttpServlet {
         
         
         String action = request.getParameter("action");
+        
         if (action.equals("guardar")){ 
             Tarea tarea = new Tarea();
             String titulo = request.getParameter("titulo");
@@ -58,6 +59,13 @@ public class DashboardServlet extends HttpServlet {
              
             tarea.guardarTarea(titulo,estado,id_proyecto);
             
+        }
+        
+        if (action.equals("modificar")){
+            String id = request.getParameter("id_tarea");
+            Integer id_tarea = Integer.parseInt(id);
+            String estado = request.getParameter("estado");
+            new Tarea().modificarEstadoTarea(id_tarea, estado);
         }
     }
 
@@ -88,16 +96,40 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("hola3");
-        response.setContentType( "text/html; charset=iso-8859-1");
-        Gson gson = new Gson();
-        PrintWriter out = response.getWriter();
         
-        String id = request.getParameter("id_proyecto");
-        Integer id_proyecto = Integer.parseInt(id);
         
-        Tarea[] tareas = new Tarea().getTareasPorProyecto(id_proyecto);
-        out.print(gson.toJson(tareas)); 
+        String action = request.getParameter("action");
+        
+        if (action.equals("guardar")){ 
+            Tarea tarea = new Tarea();
+            String parametro = request.getParameter("id_proyecto");
+            Integer id_proyecto = Integer.parseInt(parametro);
+            String titulo = request.getParameter("titulo");
+            String estado=request.getParameter("estado");
+             
+            tarea.guardarTarea(titulo,estado,id_proyecto);
+            
+        }else if(action.equals("modificar")){
+            Tarea tarea = new Tarea();
+            String id = request.getParameter("id_tarea");
+            Integer id_tarea = Integer.parseInt(id);
+            String estado = request.getParameter("estado");
+            
+            tarea.modificarEstadoTarea(id_tarea, estado);
+        }else if (action.equals("cargar")){
+            response.setContentType("application/json");
+            Gson gson = new Gson();
+            
+            String parametro = request.getParameter("id_proyecto");
+            Integer id_proyecto = Integer.parseInt(parametro);
+            
+            Tarea[] tareas = new Tarea().getTareasPorProyecto(id_proyecto);
+
+            /*hola mundo*/
+            PrintWriter out = response.getWriter();
+            out.print(gson.toJson(tareas));  
+            out.flush();
+        }
     }
 
     /**
