@@ -108,7 +108,7 @@
           <form id="formUpdateProyecto" >
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Ingresar Proyecto</h4>
+              <h4 class="modal-title">Actualizar Proyecto</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Ingresar</button>
+              <button type="submit" class="btn btn-primary">Actualizar</button>
             </div>
                
           </form>
@@ -208,8 +208,8 @@
  
                 var userId = $(this).siblings('.userIdProyecto').text();               
                 $("input#inputNombre.form-control").val( $(this).siblings('.nombre').text() );
-                $("input#inputEmail.form-control").val( $(this).siblings('.descripcion').text() );
-                $("select#selectRol.form-control").val( $(this).siblings('.responsable').text() );          
+                $("input#inputDescripcion.form-control").val( $(this).siblings('.descripcion').text() );
+                     
                
                 $("#formUpdateProyecto").submit(function(e){
                     e.preventDefault();
@@ -228,7 +228,7 @@
             $('.eliminarProyecto').click(function() {
                 
                var userId = $(this).siblings('.userIdProyecto').text();
-               var url = "ProyectosServlet?action=eliminar";
+               var url = "eliminarProyecto";
                var elemento = $(this);
                
                $.ajax({
