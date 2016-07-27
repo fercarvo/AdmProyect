@@ -158,7 +158,7 @@ public class Proyecto {
         } catch (Exception e) {
             e.printStackTrace();
             exito="mal";
-            System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLL");
+            
         }
         return exito;
     }

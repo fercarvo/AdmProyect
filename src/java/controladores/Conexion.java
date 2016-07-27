@@ -24,7 +24,7 @@ public class Conexion {
         try {
             Class.forName(driver);
             conexion = DriverManager.getConnection(servidor, user, pass);
-            System.out.println("conexion realizada con exito");
+            
             
         } catch (ClassNotFoundException | SQLException e ) {
             System.out.println("conexion fallida");

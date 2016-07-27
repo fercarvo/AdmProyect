@@ -35,6 +35,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         Usuario u = new Usuario();
         Exception e;
+        System.out.println(request.getParameter("flag")+"siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
         switch (request.getParameter("flag")) {
             case "save":{
                 String nombre = request.getParameter("inputNombre");
@@ -68,6 +69,7 @@ public class UserServlet extends HttpServlet {
             }
 
             case "delete":{
+                
                 response.setContentType("application/json");
                 Gson gson = new Gson();
                 JsonObject object = new JsonObject();
@@ -77,7 +79,7 @@ public class UserServlet extends HttpServlet {
                 }
                 else{
                     object.addProperty("error", Boolean.TRUE);
-                    object.addProperty("errormsg", "No se elimino: "+e.getMessage());
+                    object.addProperty("errormsg", "No se puede eliminar por que tiene un proyecto asociado");
                 }       
                 PrintWriter out = response.getWriter();
                 out.print(gson.toJson(object));

@@ -41,23 +41,37 @@ public class ProyectosServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(gson.toJson(usuarios));  
             out.flush();
-            String nombre = request.getParameter("inputNombre");
-            String descripcion=request.getParameter("inputDescripcion");
-            String id=request.getParameter("inputId");
-            Integer  id_usuario=Integer.valueOf(id);
-            String id_proy = request.getParameter("Id");
-            if (action.equals("guardar")){ 
-                
-                proyecto.guardar(nombre,descripcion,id_usuario);
-            }
-            if (action.equals("actualizar")){ 
-                
-                proyecto.update(id_proy, nombre, descripcion, id);
-            }
-            if (action.equals("eliminar")){ 
-                proyecto.eliminar(request.getParameter("Id"));
-            }
             
+            
+            
+            
+            
+            switch (request.getParameter("flag")) {
+                
+                case "save":{
+                    String nombre = request.getParameter("inputNombre");
+                    String descripcion=request.getParameter("inputDescripcion");
+                    String id=request.getParameter("inputId");
+                    Integer  id_usuario=Integer.valueOf(id);
+                    proyecto.guardar(nombre,descripcion,id_usuario);
+                    break;
+                }
+                case "update":{
+                    String nombre = request.getParameter("inputNombre");
+                    String descripcion=request.getParameter("inputDescripcion");
+                    String id=request.getParameter("inputId");
+                    String id_proy = request.getParameter("Id");
+                    proyecto.update(id_proy, nombre, descripcion, id);
+                    break;
+                }
+                case "delete":{
+                    proyecto.eliminar(request.getParameter("Id"));
+                    
+                     break;
+                }
+                default:
+                break;
+            }
           
         
 
