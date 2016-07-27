@@ -31,9 +31,9 @@ public class listaDeProyectos {
                 usuario=iteradorUser.getUsuario(proyecto.getId_usuario());
                 codTabla = codTabla + "<tr >\n";
                 codTabla = codTabla + "<th class = 'userIdProyecto' scope=\"row\">" + proyecto.getId() + "</th>\n";
-                codTabla = codTabla + "<td>" + proyecto.getNombre() + "</td>\n";
-                codTabla = codTabla + "<td>" + proyecto.getDescripcion() + "</td>\n";
-                codTabla = codTabla + "<td>" +usuario.getNombre()  + "</td>\n";
+                codTabla = codTabla + "<td class = 'nombre'>" + proyecto.getNombre() + "</td>\n";
+                codTabla = codTabla + "<td class = 'descripcion'>" + proyecto.getDescripcion() + "</td>\n";
+                codTabla = codTabla + "<td class = 'responsable'>" +usuario.getNombre()  + "</td>\n";
                 codTabla = codTabla + "<td class= 'editarProyecto' data-toggle=\"modal\" data-target=\"#modalProyectosUpdate\"><a href=\"#\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span></a></td>\n";
                 codTabla = codTabla + "<td class= 'eliminarProyecto'><a href=\"#\"><span type=submit class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>\n";
                 codTabla = codTabla + "</tr>\n";

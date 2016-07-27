@@ -149,73 +149,52 @@
                    data:formData,
                    success:function(){
                        window.location = "home.jsp";
-
                }
                });
             });
             
-            $('.eliminarUsuario').click(function() {
-                
-               var userId = $(this).siblings('.userId').text();
-               var string = userId.toString();
-               var url = "UserServlet";
-               $(this).addClass( "selected" );
-               
-               $.ajax({
-                   type: "POST",
-                   url: url,
-                   data: {Id:string, flag:"delete"},
-                   success:function(data){
-                       if (data.error){
-                           $("#errorLogin").show();
-                           $("#errorLogin").text(data.errormsg);
-                           
-                       }
-                       else{
-                           $("td.selected").parent().remove();
-                       }    
-                       
-                       
-                   }
-                   
-               });
-              
-              
-            });
-            
-            $('.editarUsuario').click(function() {
-               var userId = $(this).siblings('.userId').text();
-               var string = userId.toString();
-               
-               $.ajax({
-                   type: "POST",
-                   url: "UserServlet",
-                   data: {Id:string},
-                   success: function(data) {
-                       
-                       $("input#inputNombre.form-control").val(data.nombre);
-                       $("input#inputEmail.form-control").val(data.email);
-                       $("select#selectRol.form-control").val(data.rol);
-                   }
-               });
-               
-                $("#formUpdateUser").submit(function(e){
-                    e.preventDefault();
-                   var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string})+'&'+$.param({flag:"update"});
-                   var url = "UserServlet?action=actualizar";
-                   $.ajax({
-                       type: "POST",
-                       url: url,
-                       data:formData,
-                       success:function(){
-                           window.location = "home.jsp";
-                   }
-                   });
+            $('.eliminarUsuario').click(function() { 
+                var userId = $(this).siblings('.userId').text();
+                var url = "UserServlet";
+                var elemento = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {Id:userId, flag:"delete"},
+                    success:function(data){
+                        if (data.error){
+                            $("#errorLogin").show();
+                            $("#errorLogin").text(data.errormsg);
+                        }
+                        else{
+                            elemento.parent().remove();
+                        }
+                    }
                 });
             });
             
-            
-            
+            $('.editarUsuario').click(function() {
+            var userId = $(this).siblings('.userId').text();
+            var string = userId.toString();
+
+                $("input#inputNombre.form-control").val( $(this).siblings('.nombre').text() );
+                $("input#inputEmail.form-control").val( $(this).siblings('.email').text() );
+                $("select#selectRol.form-control").val( $(this).siblings('.rol').text() );
+
+                $("#formUpdateUser").submit(function(e){
+                    e.preventDefault();
+                    var formData=$("#formUpdateUser").serialize()+'&'+$.param({Id:string})+'&'+$.param({flag:"update"});
+                    var url = "UserServlet?action=actualizar";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data:formData,
+                        success:function(){
+                            window.location = "home.jsp";
+                        }
+                    });
+                });
+            });           
         });
         
     </script>

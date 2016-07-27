@@ -152,7 +152,6 @@
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
             });
-            
             function autoCompletar(responsable){
             $(responsable).autocomplete({
                 
@@ -173,9 +172,6 @@
                             });
                         });
                         console.log(data);
-                            
-                        
-                        
                         response($.ui.autocomplete.filter(nombres, request.term));
                    }
                });
@@ -209,55 +205,38 @@
             });
             autoCompletar(".responsable");
             $('.editarProyecto').click(function() {
-              
-               var userId = $(this).siblings('.userIdProyecto').text();
-               var string = userId.toString();
-               
-               $.ajax({
-                   type: "POST",
-                   url: "cargarCadaProyecto",
-                   data: {Id:string},
-                   success: function(data) {
-                       $("#inputId").val(data.id_usuario);
-                       $("input#inputNombre.form-control").val(data.nombre);
-                       $("input#inputDescripcion.form-control").val(data.descripcion);
-                       
-                   }
-               });
+ 
+                var userId = $(this).siblings('.userIdProyecto').text();               
+                $("input#inputNombre.form-control").val( $(this).siblings('.nombre').text() );
+                $("input#inputEmail.form-control").val( $(this).siblings('.descripcion').text() );
+                $("select#selectRol.form-control").val( $(this).siblings('.responsable').text() );          
                
                 $("#formUpdateProyecto").submit(function(e){
-                    
                     e.preventDefault();
-                   var formData=$("#formUpdateProyecto").serialize()+'&'+$.param({Id:string});
-                   var url = "ProyectosServlet?action=actualizar";
-                   $.ajax({
-                       type: "POST",
-                       url: url,
-                       data:formData,
-                       success:function(){
-                           window.location = "proyecto.jsp";
-                   }
-                   });
+                    var formData=$("#formUpdateProyecto").serialize()+'&'+$.param({Id:userId});
+                    var url = "ProyectosServlet?action=actualizar";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data:formData,
+                        success:function(){
+                            window.location = "proyecto.jsp";
+                    }
+                    });
                 });
             });
             $('.eliminarProyecto').click(function() {
                 
                var userId = $(this).siblings('.userIdProyecto').text();
-               var string = userId.toString();
-               var url = "eliminarProyecto";
-               $(this).addClass( "selected" );
+               var url = "ProyectosServlet?action=eliminar";
+               var elemento = $(this);
                
                $.ajax({
                    type: "POST",
                    url: url,
-                   data: {Id:string},
+                   data: {Id:userId},
                    success:function(){
-                       
-                       
-                           $("td.selected").parent().remove();
-                       
-                       
-                       
+                           elemento.parent().remove();                       
                    }
                    
                });

@@ -55,8 +55,6 @@ public class ProyectosServlet extends HttpServlet {
                 proyecto.update(id_proy, nombre, descripcion, id);
             }
             if (action.equals("eliminar")){ 
-                
-                
                 proyecto.eliminar(request.getParameter("Id"));
             }
             
