@@ -79,23 +79,6 @@ public class UserServlet extends HttpServlet {
             default:
                 break;
         }
-            
-        
-        
-        
-<<<<<<< HEAD:src/java/controladores/UpdateUsuario.java
-        out.print(gson.toJson(u.getUsuario(id_usuario)));  
-        out.flush();
-       
-        if (action.equals("actualizar")){ 
-        String nombre = request.getParameter("inputNombre");
-        String rol = request.getParameter("selectRol");
-        String email = request.getParameter("inputEmail");
-       
-        u.update(id, nombre, email, rol);
-        }
-=======
->>>>>>> servletUsuario:src/java/controladores/UserServlet.java
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
