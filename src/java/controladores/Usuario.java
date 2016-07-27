@@ -6,7 +6,6 @@
 package controladores;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,7 +39,7 @@ public class Usuario {
             st.close();
             System.out.println("insertado con éxito!!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }    
     

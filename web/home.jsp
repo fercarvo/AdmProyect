@@ -55,7 +55,36 @@
           </tr>
         </thead>
         <tbody id = "tabla">
-          <%= new UsuariosServlet().tablaUsuarios() %>
+            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            var url = "UserServlet";
+            var codTabla = "";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {flag:"cargar"},
+                success:function(data){
+                    $.each(data, function(i, obj) {
+                        var id = obj.id;
+                        var nombre = obj.nombre ;
+                        var email = obj.email;
+                        var rol = obj.rol;
+                        $( "#tabla" ).html(function() {
+                            codTabla = codTabla + "<tr >\n";
+                            codTabla = codTabla + "<th class = userId' scope=\"row\">" + id + "</th>\n";
+                            codTabla = codTabla + "<td class = 'nombre'>" + nombre + "</td>\n";
+                            codTabla = codTabla + "<td class = 'email'>" + email + "</td>\n";
+                            codTabla = codTabla + "<td class = 'rol'>" + rol + "</td>\n";
+                            codTabla = codTabla + "<td class= 'editarUsuario' data-toggle=\"modal\" data-target=\"#modalUsuariosUpdate\"><a href=\"#\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span></a></td>\n";
+                            codTabla = codTabla + "<td class= 'eliminarUsuario'><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>\n";
+                            codTabla = codTabla + "</tr>\n";
+                            return codTabla;
+                        });                         
+                    });
+                }
+            });
+        </script>
+
         </tbody>
       </table>
     </div>
@@ -130,7 +159,37 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
     <script>
+          
         $(document).ready(function() {
+            var url = "UserServlet";
+            var codTabla = "";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {flag:"cargar"},
+                success:function(data){
+                    $.each(data, function(i, obj) {
+                        var id = obj.id;
+                        var nombre = obj.nombre ;
+                        var email = obj.email;
+                        var rol = obj.rol;
+                        $( "#tabla" ).html(function() {
+                            codTabla = codTabla + "<tr >\n";
+                            codTabla = codTabla + "<th class = userId' scope=\"row\">" + id + "</th>\n";
+                            codTabla = codTabla + "<td class = 'nombre'>" + nombre + "</td>\n";
+                            codTabla = codTabla + "<td class = 'email'>" + email + "</td>\n";
+                            codTabla = codTabla + "<td class = 'rol'>" + rol + "</td>\n";
+                            codTabla = codTabla + "<td class= 'editarUsuario' data-toggle=\"modal\" data-target=\"#modalUsuariosUpdate\"><a href=\"#\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span></a></td>\n";
+                            codTabla = codTabla + "<td class= 'eliminarUsuario'><a href=\"#\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>\n";
+                            codTabla = codTabla + "</tr>\n";
+                            return codTabla;
+                        });                         
+                    });
+                }
+            });
+            
+            
+            
             $('#tablaUsuarios').DataTable({
                 "language": {
                     url: 'i18n/dt-spanish.json'
@@ -139,6 +198,7 @@
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
             });
+            
             $("#formNuevoUser").submit(function(e){
                 e.preventDefault();
                var formData=$("#formNuevoUser").serialize()+'&'+$.param({flag:"save"});
@@ -154,7 +214,7 @@
             });
             
             $('.eliminarUsuario').click(function() { 
-                var userId = $(this).siblings('.userId').text();
+                var userId = $(this).siblings('.userId').text().toString();
                 var url = "UserServlet";
                 var elemento = $(this);
                 $.ajax({

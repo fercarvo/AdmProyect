@@ -6,6 +6,7 @@
 package controladores;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,6 +37,24 @@ public class UserServlet extends HttpServlet {
         Usuario u = new Usuario();
         Exception e;
         switch (request.getParameter("flag")) {
+            case "cargar":{
+                response.setContentType("application/json");
+                Gson gson = new Gson();
+                Usuario [] datos = u.getUsuarios();
+                JsonArray jsonArray = new JsonArray();
+                for (Usuario usuario : datos) {
+                    JsonObject jsonUser = new JsonObject();
+                    jsonUser.addProperty("id", usuario.getId());
+                    jsonUser.addProperty("nombre", usuario.getNombre());
+                    jsonUser.addProperty("email", usuario.getEmail());
+                    jsonUser.addProperty("rol", usuario.getRol());
+                    jsonArray.add(jsonUser);
+                }
+                PrintWriter out = response.getWriter();
+                out.print(gson.toJson(jsonArray));
+                out.flush();
+                break;
+                }
             case "save":{
                 String nombre = request.getParameter("inputNombre");
                 String rol = request.getParameter("selectRol");
@@ -82,6 +101,7 @@ public class UserServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.print(gson.toJson(object));
                 out.flush();
+                System.out.println(gson.toJson(object));
                 break;
                 }
             default:
