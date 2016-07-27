@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,6 +88,23 @@ public class Proyecto {
         
         return cantidad; 
     }
+    public void update (String id_proyecto, String nombre, String descripcion, String id_user){
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        String sql = "UPDATE proyecto SET nombre ='"+nombre+"', descripcion='"+descripcion+"', id_usuario='"+id_user+"' WHERE id_proyecto='"+id_proyecto+"'";
+        try{
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            
+            con.close();
+            st.close();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+    }
     /*public Proyecto[] getProyectos() {
         Conexion conexion = new Conexion();
         Connection con = conexion.getConnection();
@@ -118,6 +136,36 @@ public class Proyecto {
         
         return null;
     }*/
+    public  String eliminar (String id){
+        Conexion conexion = new Conexion();
+        Connection con = conexion.getConnection();
+        Statement st;
+        ResultSet rs;
+        Conexion conexion1 = new Conexion();
+        Connection con1 = conexion1.getConnection();
+        Statement st1;
+        ResultSet rs1;
+        String exito;
+        String sql = "delete from tarea where id_proyecto = '"+id+"'";
+        String sql1 = "delete from proyecto where id_proyecto= '"+id+"'";
+        try {
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            
+            st1 = con1.createStatement();
+            st1.executeUpdate(sql1);
+            
+            //Obtenemos los datos del usuario
+            exito="bien";
+            con.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            exito="mal";
+            System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLL");
+        }
+        return exito;
+    }
     public Proyecto getProyecto(Integer id) {
          Proyecto proyecto = new Proyecto();
          //Cargamos la conexión

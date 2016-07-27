@@ -84,10 +84,10 @@
                   <input type="text" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripcion">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="inputResponsable" name="inputResponsable" placeholder="Nombre del Responsable">
+                  <input type="text" class="form-control responsable" id="inputResponsable" name="inputResponsable" placeholder="Nombre del Responsable">
                 </div>
                 
-                  <input type="number" id="inputId" name="inputId" >
+                  <input type="number" id="inputId" class="Id_proy" name="inputId" >
                 
             </div>
             <div class="modal-footer">
@@ -102,7 +102,41 @@
       </div>
         
     </div>
-
+    <div class="modal fade" id="modalProyectosUpdate" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form id="formUpdateProyecto" >
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Ingresar Proyecto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="inputNombre" name="inputNombre" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripcion">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control responsable" id="inputResponsable" name="inputResponsable" placeholder="Nombre del Responsable">
+                </div>
+                
+                  <input type="number" id="inputId" class="Id_proy" name="inputId" >
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
+            </div>
+               
+          </form>
+            
+        </div>
+         
+      </div>
+        
+    </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -118,7 +152,9 @@
                     { 'bSortable': false, 'aTargets': [ 4, 5 ] }
                  ]
             });
-            $("#inputResponsable").autocomplete({
+            
+            function autoCompletar(responsable){
+            $(responsable).autocomplete({
                 
                 source: function(request, response){
                     var nombres = [];
@@ -136,10 +172,10 @@
                                 id:usuario.id
                             });
                         });
-                        
+                        console.log(data);
                             
                         
-                        //console.log(paises);
+                        
                         response($.ui.autocomplete.filter(nombres, request.term));
                    }
                });
@@ -147,11 +183,12 @@
                     
                 },
 		select: function(event, ui){
-                    $("#inputResponsable").val(ui.item.label);
-                    $("#inputId").val(ui.item.id);
+                    $(responsable).val(ui.item.label);
+                    $(".Id_proy").val(ui.item.id);
                     return false;
 		}
             });
+        }
            $("#formNuevoProyecto").submit(function(e){
                // this.setAttribute("color","red");
                 
@@ -169,6 +206,63 @@
                    
                }
                });
+            });
+            autoCompletar(".responsable");
+            $('.editarProyecto').click(function() {
+              
+               var userId = $(this).siblings('.userIdProyecto').text();
+               var string = userId.toString();
+               
+               $.ajax({
+                   type: "POST",
+                   url: "cargarCadaProyecto",
+                   data: {Id:string},
+                   success: function(data) {
+                       $("#inputId").val(data.id_usuario);
+                       $("input#inputNombre.form-control").val(data.nombre);
+                       $("input#inputDescripcion.form-control").val(data.descripcion);
+                       
+                   }
+               });
+               
+                $("#formUpdateProyecto").submit(function(e){
+                    
+                    e.preventDefault();
+                   var formData=$("#formUpdateProyecto").serialize()+'&'+$.param({Id:string});
+                   var url = "ProyectosServlet?action=actualizar";
+                   $.ajax({
+                       type: "POST",
+                       url: url,
+                       data:formData,
+                       success:function(){
+                           window.location = "proyecto.jsp";
+                   }
+                   });
+                });
+            });
+            $('.eliminarProyecto').click(function() {
+                
+               var userId = $(this).siblings('.userIdProyecto').text();
+               var string = userId.toString();
+               var url = "eliminarProyecto";
+               $(this).addClass( "selected" );
+               
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: {Id:string},
+                   success:function(){
+                       
+                       
+                           $("td.selected").parent().remove();
+                       
+                       
+                       
+                   }
+                   
+               });
+              
+              
             });
         });
         

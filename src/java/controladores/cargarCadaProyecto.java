@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Usuario
  */
-@WebServlet(name = "ProyectosServlet", urlPatterns = {"/ProyectosServlet"})
-public class ProyectosServlet extends HttpServlet {
+@WebServlet(name = "cargarCadaProyecto", urlPatterns = {"/cargarCadaProyecto"})
+public class cargarCadaProyecto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,38 +32,15 @@ public class ProyectosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Proyecto proyecto=new Proyecto();
-        String action = request.getParameter("action");
         response.setContentType("application/json");
         
             Gson gson = new Gson();
-            Usuario[] usuarios = new Usuario().getUsuarios();
+            String id = request.getParameter("Id");
+            Integer  id_proy=Integer.valueOf(id);
+            Proyecto proyecto = new Proyecto().getProyecto(id_proy);
             PrintWriter out = response.getWriter();
-            out.print(gson.toJson(usuarios));  
+            out.print(gson.toJson(proyecto));  
             out.flush();
-            String nombre = request.getParameter("inputNombre");
-            String descripcion=request.getParameter("inputDescripcion");
-            String id=request.getParameter("inputId");
-            Integer  id_usuario=Integer.valueOf(id);
-            String id_proy = request.getParameter("Id");
-            if (action.equals("guardar")){ 
-                
-                proyecto.guardar(nombre,descripcion,id_usuario);
-            }
-            if (action.equals("actualizar")){ 
-                
-                proyecto.update(id_proy, nombre, descripcion, id);
-            }
-            if (action.equals("eliminar")){ 
-                
-                
-                proyecto.eliminar(request.getParameter("Id"));
-            }
-            
-          
-        
-
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
