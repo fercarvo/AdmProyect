@@ -189,9 +189,9 @@
                // this.setAttribute("color","red");
                 
                 e.preventDefault();
-               var formData=$("#formNuevoProyecto").serialize();
+               var formData=$("#formNuevoProyecto").serialize()+'&'+$.param({flag:"save"});;
                
-               var url = "ProyectosServlet?action=guardar";
+               var url = "ProyectosServlet";
                $.ajax({
                    type: "POST",
                    url: url,
@@ -213,8 +213,8 @@
                
                 $("#formUpdateProyecto").submit(function(e){
                     e.preventDefault();
-                    var formData=$("#formUpdateProyecto").serialize()+'&'+$.param({Id:userId});
-                    var url = "ProyectosServlet?action=actualizar";
+                    var formData=$("#formUpdateProyecto").serialize()+'&'+$.param({Id:userId})+'&'+$.param({flag:"update"});
+                    var url = "ProyectosServlet";
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -228,13 +228,13 @@
             $('.eliminarProyecto').click(function() {
                 
                var userId = $(this).siblings('.userIdProyecto').text();
-               var url = "eliminarProyecto";
+               var url = "ProyectosServlet";
                var elemento = $(this);
                
                $.ajax({
                    type: "POST",
                    url: url,
-                   data: {Id:userId},
+                   data: {Id:userId,flag:"delete"},
                    success:function(){
                            elemento.parent().remove();                       
                    }
